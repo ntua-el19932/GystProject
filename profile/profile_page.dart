@@ -13,7 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String ButtonName = 'button';
+  String buttonName = 'button';
   bool valNot1 = true;
 
   onChange1(bool nValue1) {
@@ -37,15 +37,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 120,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image.asset(ProfileImage)),
+                      child: Image.asset(profileImage)),
                 ),
                 const SizedBox(height: 30),
-                Text(UserName, style: const TextStyle(fontSize: 20)),
+                Text(userName, style: const TextStyle(fontSize: 20)),
                 const SizedBox(height: 30),
                 ElevatedButton.icon(
-                    label: Text('Edit Profile', style: TextStyle(color: black)),
+                    label: const Text('Edit Profile',
+                        style: TextStyle(color: black)),
                     style: buttonPr,
-                    icon: Icon(Icons.edit, color: black),
+                    icon: const Icon(Icons.edit, color: black),
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -58,10 +59,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {},
-                      label:
-                          Text('Notifications', style: TextStyle(color: black)),
+                      label: const Text('Notifications',
+                          style: TextStyle(color: black)),
                       style: buttonPr,
-                      icon: Icon(Icons.notifications_active_outlined,
+                      icon: const Icon(Icons.notifications_active_outlined,
                           color: black),
                     ),
                     Positioned(
@@ -91,12 +92,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Divider(),
+                const Divider(),
                 ElevatedButton.icon(
                   onPressed: () {},
-                  label: Text('Log out', style: TextStyle(color: black)),
+                  label: const Text('Log out', style: TextStyle(color: black)),
                   style: buttonPr,
-                  icon: Icon(Icons.logout, color: black),
+                  icon: const Icon(Icons.logout, color: black),
                 ),
               ],
             ),
