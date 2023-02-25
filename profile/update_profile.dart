@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:startup_namer/constants.dart';
-import 'package:startup_namer/profile/profile_page.dart';
-import 'package:startup_namer/styles/button.dart';
-import 'package:startup_namer/styles/colors.dart';
-import 'package:startup_namer/main.dart';
+import 'package:gyst/constants.dart';
+import 'package:gyst/profile/profile_page.dart';
+import 'package:gyst/styles/button.dart';
+import 'package:gyst/styles/colors.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);
@@ -16,11 +15,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final emailController = TextEditingController();
   final nameController = TextEditingController();
 
+  String tempEmail = 'user1@gmail.com';
+  String tempName = 'user1';
   @override
   void initState() {
     super.initState();
 
-    emailController.addListener(() => setState(() {}));
+    emailController.addListener(() => setState(() {
+          UserEmail = emailController.text;
+        }));
     nameController.addListener(() => setState(() {}));
   }
 
@@ -40,7 +43,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       body: Column(
         children: [
           const SizedBox(height: 20),
-          Text(
+          const Text(
             "Edit your profile",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
@@ -64,14 +67,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100), color: dark),
                   child: IconButton(
-                    icon: Icon(Icons.add_a_photo_outlined),
+                    icon: const Icon(Icons.add_a_photo_outlined),
                     color: Colors.black,
                     iconSize: 20,
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfilePage()));
+                              builder: (context) => const ProfilePage()));
                     },
                   ),
                 ),
@@ -79,32 +82,21 @@ class _UpdateProfileState extends State<UpdateProfile> {
             ],
           ),
           const SizedBox(height: 30),
-          Text(
-            'Name',
-            textAlign: TextAlign.left,
-          ),
-          TextField(
-            //Name
+          TextFormField(
             controller: nameController,
             keyboardType: TextInputType.name,
-            textInputAction: TextInputAction.done,
+            textInputAction: TextInputAction.next,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFF5B5F97))),
-              labelText: (UserName),
-              hintText: 'Name',
-              prefixIcon:
-                  Icon(Icons.person_outline_sharp, color: Color(0xFF5B5F97)),
-              hoverColor: Color(0xFF5B5F97),
+              labelText: ("Name"),
+              hintText: "Maria",
               fillColor: Colors.white,
+              focusColor: Color(0xFF5B5F97),
             ),
           ),
           const SizedBox(height: 10),
-          Text(
-            'Email',
-            textAlign: TextAlign.left,
-          ),
-          TextField(
+          TextFormField(
             //Email
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
@@ -112,21 +104,25 @@ class _UpdateProfileState extends State<UpdateProfile> {
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFF5B5F97))),
-              labelText: (UserEmail),
+              labelText: ('Email'),
               hintText: 'name@example.com',
               prefixIcon: Icon(Icons.email, color: Color(0xFF5B5F97)),
               hoverColor: Color(0xFF5B5F97),
+              focusColor: Color(0xFF5B5F97),
               fillColor: Colors.white,
             ),
+            onFieldSubmitted: (value) => tempEmail = value,
           ),
           const SizedBox(height: 50),
           ElevatedButton(
             onPressed: () {
+              UserEmail = tempEmail;
+              UserName = tempName;
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()));
+                  MaterialPageRoute(builder: (context) => const ProfilePage()));
             },
-            child: Text('Save', style: TextStyle(color: black)),
             style: SaveButton,
+            child: Text('Save', style: TextStyle(color: black)),
           ),
         ],
       ),
