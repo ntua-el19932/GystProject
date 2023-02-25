@@ -33,8 +33,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: black),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProfilePage()));
+            Navigator.of(context).pop();
           },
         ),
       ),
