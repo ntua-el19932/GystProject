@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:gyst/add_page.dart';
-import 'package:gyst/focus_page.dart';
-import 'package:gyst/home_page.dart';
-import 'package:gyst/menu_page.dart';
-import 'package:gyst/profile_page.dart';
+import 'add_page.dart';
+import 'focus_page.dart';
+import 'home_page.dart';
+import 'menu_page.dart';
+import 'profile/profile_page.dart';
+import 'profile/update_profile.dart';
+import 'styles/colors.dart';
+import 'package:gyst/templates/study.dart';
+import 'package:gyst/templates/month.dart';
+import 'package:gyst/templates/shopping.dart';
+import 'package:gyst/templates/workout.dart';
+import 'package:gyst/templates/todo.dart';
+import 'package:gyst/templates/watch.dart';
+import 'package:gyst/templates/notes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Gyst',
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFD3D3E2)),
+      theme: ThemeData(scaffoldBackgroundColor: light, primaryColorDark: dark),
       home: const RootPage(),
     );
   }
@@ -31,51 +40,56 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-
   int _currentIndex = 0;
   List<Widget> pages = const [
     HomePage(),
     MenuPage(),
     AddPage(),
     FocusPage(),
-    ProfilePage()
+    ProfilePage(),
+    UpdateProfile(),
+    MonthlyPlannerPage(),
+    QuickNotesPage(),
+    ShoppingListPage(),
+    StudyPlannerPage(),
+    ToDoListPage(),
+    WatchListPage(),
+    WorkoutPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_currentIndex],   
+      body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF5B5F97),
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black54,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        items: const [
-          BottomNavigationBarItem(
-            label: 'Home',
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-              label: 'Menu', 
-              icon: Icon(Icons.format_list_bulleted_rounded)),
-          BottomNavigationBarItem(
-            label: 'Add',
-            icon: Icon(Icons.add),
-          ),
-          BottomNavigationBarItem(
-              label: 'Focus', 
-              icon: Icon(Icons.brightness_2_outlined)),
-          BottomNavigationBarItem(
-              label: 'Profile', 
-              icon: Icon(Icons.person_outlined))
-        ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          },);
-        }
-      ),
+          backgroundColor: dark,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.black54,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentIndex,
+          items: const [
+            BottomNavigationBarItem(
+              label: 'Home',
+              icon: Icon(Icons.home),
+            ),
+            BottomNavigationBarItem(
+                label: 'Menu', icon: Icon(Icons.format_list_bulleted_rounded)),
+            BottomNavigationBarItem(
+              label: 'Add',
+              icon: Icon(Icons.add),
+            ),
+            BottomNavigationBarItem(
+                label: 'Focus', icon: Icon(Icons.brightness_2_outlined)),
+            BottomNavigationBarItem(
+                label: 'Profile', icon: Icon(Icons.person_outlined))
+          ],
+          onTap: (index) {
+            setState(
+              () {
+                _currentIndex = index;
+              },
+            );
+          }),
     );
   }
 }
