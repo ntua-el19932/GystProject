@@ -22,9 +22,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
     super.initState();
 
     emailController.addListener(() => setState(() {
-          UserEmail = emailController.text;
+          userEmail = emailController.text;
         }));
-    nameController.addListener(() => setState(() {}));
+    nameController.addListener(() => setState(() {
+          userName = nameController.text;
+        }));
   }
 
   @override
@@ -34,7 +36,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         backgroundColor: light,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: black),
+          icon: const Icon(Icons.arrow_back, color: black),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -48,7 +50,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
           Stack(
             children: [
               SizedBox(
@@ -56,7 +58,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 height: 120,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image.asset(ProfileImage)),
+                    child: Image.asset(profileImage)),
               ),
               Positioned(
                 bottom: 0,
@@ -116,13 +118,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
           const SizedBox(height: 50),
           ElevatedButton(
             onPressed: () {
-              UserEmail = tempEmail;
-              UserName = tempName;
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ProfilePage()));
+              userEmail = tempEmail;
+              userName = tempName;
+              Navigator.of(context).pop();
             },
-            style: SaveButton,
-            child: Text('Save', style: TextStyle(color: black)),
+            style: saveButton,
+            child: const Text('Save', style: TextStyle(color: black)),
           ),
         ],
       ),
