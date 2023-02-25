@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Image.asset(ProfileImage)),
                 ),
                 const SizedBox(height: 30),
-                Text(UserName, style: TextStyle(fontSize: 20)),
+                Text(UserName, style: const TextStyle(fontSize: 20)),
                 const SizedBox(height: 30),
                 ElevatedButton.icon(
                     label: Text('Edit Profile', style: TextStyle(color: black)),
@@ -50,10 +50,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UpdateProfile()));
+                              builder: (context) => const UpdateProfile()));
                     }),
                 const SizedBox(height: 10),
-                Divider(),
+                const Divider(),
                 Stack(
                   children: [
                     ElevatedButton.icon(
@@ -65,6 +65,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: black),
                     ),
                     Positioned(
+                      right: 0,
+                      bottom: 7,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 20),
@@ -85,8 +87,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       ),
-                      right: 0,
-                      bottom: 7,
                     ),
                   ],
                 ),
