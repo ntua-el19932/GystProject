@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:startup_namer/constants.dart';
-import 'package:startup_namer/profile/update_profile.dart';
-import 'package:startup_namer/styles/button.dart';
-import 'package:startup_namer/styles/colors.dart';
+import 'package:gyst/constants.dart';
+import 'package:gyst/profile/update_profile.dart';
+import 'package:gyst/styles/button.dart';
+import 'package:gyst/styles/colors.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
