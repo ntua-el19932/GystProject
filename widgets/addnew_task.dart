@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gyst/styles/button.dart';
 import 'package:gyst/styles/colors.dart';
+import 'package:gyst/widgets/todo_item.dart';
+import 'package:gyst/widgets/to_do.dart';
 
 class ToDoNew extends StatefulWidget {
   const ToDoNew({Key? key}) : super(key: key);
@@ -11,6 +13,16 @@ class ToDoNew extends StatefulWidget {
 
 class AddNewTodotask extends State<ToDoNew> {
   final todoController = TextEditingController();
+  final toDolist = ToDo.todoList();
+
+  void addNewTask_(String newTask) {
+    setState(() {
+      toDolist.add(ToDo(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          todoText: newTask));
+    });
+    todoController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +59,7 @@ class AddNewTodotask extends State<ToDoNew> {
             const Padding(padding: EdgeInsets.symmetric(vertical: 200)),
             ElevatedButton(
               onPressed: () {
-                //addToDoItem(todoController.text);
+                addNewTask_(todoController.text);
                 Navigator.of(context).pop();
               },
               style: saveButton,
