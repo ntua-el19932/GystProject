@@ -22,3 +22,15 @@ final ButtonStyle saveButton = ElevatedButton.styleFrom(
         borderRadius: BorderRadius.all(
       Radius.circular(100),
     )));
+
+final ButtonStyle addNew = ElevatedButton.styleFrom(
+    //padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    textStyle: const TextStyle(fontSize: 18),
+    minimumSize: const Size(185, 60),
+    backgroundColor: dark, //background color
+    foregroundColor: white, //text color
+    elevation: 0,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20),
+    )));
