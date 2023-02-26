@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gyst/styles/button.dart';
 import 'package:gyst/styles/colors.dart';
+import 'package:gyst/widgets/addnew_task.dart';
 import 'package:gyst/widgets/todo_item.dart';
 import 'package:gyst/widgets/to_do.dart';
 
@@ -12,6 +14,17 @@ class ToDoListPage extends StatefulWidget {
 
 class _ToDoListPageState extends State<ToDoListPage> {
   final todolist = ToDo.todoList();
+
+  void todoChange(ToDo todo) {
+    setState(() {});
+    todo.isDone = !todo.isDone;
+  }
+
+  void deleteItem(String id) {
+    setState(() {
+      todolist.removeWhere((item) => item.id == id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,30 +45,43 @@ class _ToDoListPageState extends State<ToDoListPage> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            const SizedBox(height: 20),
-            Column(
-              children: [
-                for (ToDo todo1 in todolist)
-                  ToDoItem(
-                    todo: todo1,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 50,
                   ),
-              ],
-            ),
-            FloatingActionButton.extended(
-              onPressed: () {
-                // Navigator.push(context,MaterialPageRoute(builder: (context) => const AddnewTesk));
-              },
-              backgroundColor: dark,
-              icon: const Icon(
-                Icons.add,
-                color: white,
+                  for (ToDo todo1 in todolist)
+                    ToDoItem(
+                      todo: todo1,
+                      toDoChanged: todoChange,
+                      dlt: deleteItem,
+                    ),
+                ],
               ),
-              label: const Text('Add New Task'),
-            )
+            ),
+            Align(
+                alignment: Alignment.topCenter,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ToDoNew()));
+                  },
+                  label: const Text("Add New Task"),
+                  //focusColor: dark,
+                  style: addNew,
+                  icon: const Icon(
+                    Icons.add,
+                    color: white,
+                    size: 50,
+                  ),
+                ))
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
