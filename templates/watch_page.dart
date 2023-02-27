@@ -93,7 +93,7 @@ class WatchingListState extends State<WatchListPage> {
                       child: TextField(
                         controller: movieController,
                         decoration: const InputDecoration(
-                          hintText: 'Add a new task',
+                          hintText: 'Add a movie you want to watch',
                         ),
                       ),
                     )),
