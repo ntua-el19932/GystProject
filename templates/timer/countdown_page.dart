@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gyst/widgets/round_button.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:gyst/styles/colors.dart';
 
 class CountdownPage extends StatefulWidget {
   const CountdownPage({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _CountdownPageState extends State<CountdownPage>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 60),
+      duration: const Duration(seconds: 60),
     );
 
     controller.addListener(() {
@@ -64,6 +65,16 @@ class _CountdownPageState extends State<CountdownPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFD3D3E2),
+      appBar: AppBar(
+        title: const Text("FOCUS MODE",
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 30.0)),
+        centerTitle: true,
+        backgroundColor: light,
+        elevation: 0,
+      ),
       body: Column(
         children: [
           Expanded(
