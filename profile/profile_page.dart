@@ -15,10 +15,17 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String buttonName = 'button';
   bool valNot1 = true;
+  bool valNot2 = false;
 
-  onChange1(bool nValue1) {
+  onChange1(bool value) {
     setState(() {
-      valNot1 = nValue1;
+      valNot1 = value;
+    });
+  }
+
+  onChange2(bool value) {
+    setState(() {
+      valNot2 = value;
     });
   }
 
@@ -37,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 120,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image.asset(profileImage)),
+                      child: Image.asset('assets/images/profile_pic.png')),
                 ),
                 const SizedBox(height: 30),
                 Text(userName, style: const TextStyle(fontSize: 20)),
@@ -93,8 +100,70 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 10),
                 const Divider(),
+                Stack(
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      label: const Text('Sync with Google Drive',
+                          style: TextStyle(color: black)),
+                      style: buttonPr,
+                      icon: const Icon(Icons.add_to_drive, color: black),
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 7,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Transform.scale(
+                              scale: 0.7,
+                              child: CupertinoSwitch(
+                                activeColor: dark,
+                                trackColor: grey,
+                                value: valNot2,
+                                onChanged: (bool newValue) {
+                                  onChange2(newValue);
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                const Divider(),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              backgroundColor: Color(0xFFD3D3E2),
+                              title: Text('Log Out'),
+                              content:
+                                  Text('Are you sure you want to log out?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'No',
+                                      style: TextStyle(color: Colors.black),
+                                    )),
+                                TextButton(
+                                    onPressed: () {},
+                                    child: const Text(
+                                      'Yes',
+                                      style: TextStyle(color: Colors.red),
+                                    ))
+                              ],
+                            ));
+                  },
                   label: const Text('Log out', style: TextStyle(color: black)),
                   style: buttonPr,
                   icon: const Icon(Icons.logout, color: black),
