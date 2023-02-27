@@ -94,7 +94,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                       child: TextField(
                         controller: shopController,
                         decoration: const InputDecoration(
-                          hintText: 'Add a new task',
+                          hintText: 'Add to your list',
                         ),
                       ),
                     )),
