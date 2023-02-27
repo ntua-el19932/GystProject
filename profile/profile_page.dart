@@ -16,6 +16,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String buttonName = 'button';
   bool valNot1 = true;
   bool valNot2 = false;
+  bool valNot3 = false;
 
   onChange1(bool value) {
     setState(() {
@@ -26,6 +27,12 @@ class _ProfilePageState extends State<ProfilePage> {
   onChange2(bool value) {
     setState(() {
       valNot2 = value;
+    });
+  }
+
+  onChange3(bool value) {
+    setState(() {
+      valNot3 = value;
     });
   }
 
@@ -104,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {},
-                      label: const Text('Sync with Google Drive',
+                      label: const Text('Google Drive sync',
                           style: TextStyle(color: black)),
                       style: buttonPr,
                       icon: const Icon(Icons.add_to_drive, color: black),
@@ -137,13 +144,51 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 10),
                 const Divider(),
+                Stack(
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      label: const Text('Location',
+                          style: TextStyle(color: black)),
+                      style: buttonPr,
+                      icon:
+                          const Icon(Icons.location_on_outlined, color: black),
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 7,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Transform.scale(
+                              scale: 0.7,
+                              child: CupertinoSwitch(
+                                activeColor: dark,
+                                trackColor: grey,
+                                value: valNot3,
+                                onChanged: (bool newValue) {
+                                  onChange3(newValue);
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                const Divider(),
                 ElevatedButton.icon(
                   onPressed: () {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                              backgroundColor: Color(0xFFD3D3E2),
-                              title: Text('Log Out'),
+                              backgroundColor: const Color(0xFFD3D3E2),
+                              title: const Text('Log Out'),
                               content:
                                   Text('Are you sure you want to log out?'),
                               actions: [
