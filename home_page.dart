@@ -55,8 +55,8 @@ class _HomePageState extends State<HomePage> {
                     )),
                 Text(userName, style: const TextStyle(fontSize: 30)),
                 //const SizedBox(width: 100,),
-                Image(
-                  image: AssetImage('images/home_page.png'),
+                const Image(
+                  image: AssetImage('assets/images/home_page.png'),
                   height: 190,
                 )
               ],
