@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gyst/templates/notes.dart';
+import 'package:gyst/templates/quick_notes/add_form_notes.dart';
 
 class AddtoNotes extends StatelessWidget {
   const AddtoNotes({Key? key}) : super(key: key);
@@ -10,15 +10,17 @@ class AddtoNotes extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Add to Quick Notes",
             style: TextStyle(
-                color: Colors.black,
-        )),
+              color: Colors.black,
+            )),
         centerTitle: true,
         backgroundColor: const Color(0xFF8787C1),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const QuickNotesPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddFormNotes()));
         },
         backgroundColor: const Color(0xFF5B5F97),
         child: const Icon(Icons.add),
