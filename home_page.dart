@@ -14,8 +14,18 @@ class _HomePageState extends State<HomePage> {
   final todolist = ToDo.todoList();
 
   void todoChange(ToDo todo) {
-    setState(() {});
-    todo.isDone = !todo.isDone;
+    setState(() {
+      todo.isDone = !todo.isDone;
+    });
+    if (todo.isDone) {
+      showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+                backgroundColor: Color(0xFFD3D3E2),
+                title: Icon(Icons.celebration_outlined, color: Colors.black),
+                content: Text('You did it!'),
+              ));
+    }
   }
 
   void deleteItem(String id) {
@@ -61,12 +71,12 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  SizedBox(height: 20),
+                  SizedBox(height: 15),
                   Text(
                     '  Today',
                     style: TextStyle(fontSize: 30),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 15),
                 ],
               ),
             ),
