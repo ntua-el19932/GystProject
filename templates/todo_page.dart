@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gyst/styles/button.dart';
 import 'package:gyst/styles/colors.dart';
-import 'package:gyst/widgets/addnew_task.dart';
 import 'package:gyst/widgets/todo_item.dart';
 import 'package:gyst/widgets/to_do.dart';
 
@@ -13,7 +12,17 @@ class ToDoListPage extends StatefulWidget {
 }
 
 class _ToDoListPageState extends State<ToDoListPage> {
-  final todolist = ToDo.todoList();
+  final todoController = TextEditingController();
+  final toDolist = ToDo.todoList();
+
+  void addNewTask_(String newTask) {
+    setState(() {
+      toDolist.add(ToDo(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          todoText: newTask));
+    });
+    todoController.clear();
+  }
 
   void todoChange(ToDo todo) {
     setState(() {});
@@ -22,7 +31,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
 
   void deleteItem(String id) {
     setState(() {
-      todolist.removeWhere((item) => item.id == id);
+      toDolist.removeWhere((item) => item.id == id);
     });
   }
 
@@ -52,7 +61,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
                   const SizedBox(
                     height: 50,
                   ),
-                  for (ToDo todo1 in todolist)
+                  for (ToDo todo1 in toDolist)
                     ToDoItem(
                       todo: todo1,
                       toDoChanged: todoChange,
@@ -62,22 +71,43 @@ class _ToDoListPageState extends State<ToDoListPage> {
               ),
             ),
             Align(
-                alignment: Alignment.topCenter,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ToDoNew()));
-                  },
-                  label: const Text("Add New Task"),
-                  //focusColor: dark,
-                  style: addNew,
-                  icon: const Icon(
-                    Icons.add,
-                    color: white,
-                    size: 50,
-                  ),
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                      margin: const EdgeInsets.only(
+                          bottom: 20, right: 20, left: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextField(
+                        controller: todoController,
+                        decoration: const InputDecoration(
+                          hintText: 'Add a new task',
+                        ),
+                      ),
+                    )),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 20, right: 20),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: dark,
+                            minimumSize: const Size(60, 60),
+                            elevation: 10),
+                        onPressed: () {
+                          addNewTask_(todoController.text);
+                        },
+                        child: const Text(
+                          '+',
+                          style: TextStyle(color: white, fontSize: 40),
+                        ),
+                      ),
+                    )
+                  ],
                 ))
           ],
         ),
