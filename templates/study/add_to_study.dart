@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:gyst/templates/study.dart';
 import 'package:gyst/templates/study/add_form.dart';
 
-class AddToStudy extends StatelessWidget {
-  const AddToStudy({Key? key}) : super(key: key);
+class AddToStudy extends StatefulWidget {
+  const AddToStudy({super.key});
 
   @override
+  State<AddToStudy> createState() => _AddToStudyState();
+}
+
+class _AddToStudyState extends State<AddToStudy> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return Scaffold(
       appBar: AppBar(
         title: const Text("Add to Study Planner",
             style: TextStyle(
@@ -30,6 +35,16 @@ class AddToStudy extends StatelessWidget {
         },
         backgroundColor: const Color(0xFF5B5F97),
         child: const Icon(Icons.add),
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(32),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/study.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
       ),
     );
   }
