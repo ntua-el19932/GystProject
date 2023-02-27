@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gyst/styles/colors.dart';
-import 'package:gyst/templates/shopping list/add_shoppingItem.dart';
 import 'package:gyst/templates/shopping list/shop_items.dart';
 import 'package:gyst/templates/shopping list/shop.dart';
-import 'package:gyst/styles/button.dart';
+
 
 class ShoppingListPage extends StatefulWidget {
   const ShoppingListPage({Key? key}) : super(key: key);
@@ -13,7 +12,17 @@ class ShoppingListPage extends StatefulWidget {
 }
 
 class _ShoppingListPageState extends State<ShoppingListPage> {
-  final itemToBuy = Shop.shoppingList();
+  final shopController = TextEditingController();
+  final shoppingList = Shop.shoppingList();
+
+  void addNewItem(String newItem) {
+    setState(() {
+      shoppingList.add(Shop(
+          id_s: DateTime.now().millisecondsSinceEpoch.toString(),
+          item: newItem));
+    });
+    shopController.clear();
+  }
 
   void shopChanged(Shop index) {
     setState(() {});
@@ -22,7 +31,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
 
   void deleteShopItem(String id) {
     setState(() {
-      itemToBuy.removeWhere((item) => item.id_s == id);
+      shoppingList.removeWhere((item) => item.id_s == id);
     });
   }
 
@@ -39,7 +48,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
           color: Colors.black,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [
+        actions: const [
           Icon(
             Icons.shopping_cart_rounded,
             color: black,
@@ -59,7 +68,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                   const SizedBox(
                     height: 50,
                   ),
-                  for (Shop todo1 in itemToBuy)
+                  for (Shop todo1 in shoppingList)
                     ShopItem(
                       shop_item: todo1,
                       shopChanged: shopChanged,
@@ -69,22 +78,43 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
               ),
             ),
             Align(
-                alignment: Alignment.topCenter,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ShopNew()));
-                  },
-                  label: const Text("Add New Task"),
-                  //focusColor: dark,
-                  style: addNew,
-                  icon: const Icon(
-                    Icons.add,
-                    color: white,
-                    size: 50,
-                  ),
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                      margin: const EdgeInsets.only(
+                          bottom: 20, right: 20, left: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextField(
+                        controller: shopController,
+                        decoration: const InputDecoration(
+                          hintText: 'Add a new task',
+                        ),
+                      ),
+                    )),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 20, right: 20),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: dark,
+                            minimumSize: const Size(60, 60),
+                            elevation: 10),
+                        onPressed: () {
+                          addNewItem(shopController.text);
+                        },
+                        child: const Text(
+                          '+',
+                          style: TextStyle(color: white, fontSize: 40),
+                        ),
+                      ),
+                    )
+                  ],
                 ))
           ],
         ),
