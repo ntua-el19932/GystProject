@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gyst/constants.dart';
 import 'package:gyst/styles/button.dart';
 import 'package:gyst/styles/colors.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);
@@ -13,6 +16,9 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   final emailController = TextEditingController();
   final nameController = TextEditingController();
+  String image = 'assets/images/profile_pic.png';
+
+  File? imageFile;
 
   @override
   @override
@@ -45,7 +51,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   height: 120,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image.asset(profileImage)),
+                      child: Image.asset(image)),
                 ),
                 Positioned(
                   bottom: 0,
@@ -59,7 +65,42 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       icon: const Icon(Icons.add_a_photo_outlined),
                       color: Colors.black,
                       iconSize: 20,
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  backgroundColor: Color(0xFFD3D3E2),
+                                  title:
+                                      const Text('Change your profile photo'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          getImage(source: ImageSource.gallery);
+                                        },
+                                        child: const Text(
+                                          'Choose from library',
+                                          style: TextStyle(color: Colors.black),
+                                        )),
+                                    TextButton(
+                                        onPressed: () {
+                                          getImage(source: ImageSource.camera);
+                                        },
+                                        child: const Text(
+                                          'Take a photo',
+                                          style: TextStyle(color: Colors.black),
+                                        )),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'Cancel',
+                                          style:
+                                              TextStyle(color: Colors.black54),
+                                        )),
+                                  ],
+                                ));
+                      },
                     ),
                   ),
                 )
@@ -114,5 +155,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
         ),
       ),
     );
+  }
+
+  void getImage({required ImageSource source}) async {
+    final file = await ImagePicker().pickImage(source: source);
+
+    if (file?.path != null) {
+      setState(() {
+        imageFile = File(file!.path);
+      });
+    }
   }
 }
