@@ -1,10 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:gyst/templates/notes.dart';
 
-class AddPage extends StatelessWidget {
-  const AddPage({Key? key}) : super(key: key);
+class AddtoNotes extends StatelessWidget {
+  const AddtoNotes({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Add'),);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Add to Quick Notes",
+            style: TextStyle(
+                color: Colors.black,
+        )),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF8787C1),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const QuickNotesPage()));
+        },
+        backgroundColor: const Color(0xFF5B5F97),
+        child: const Icon(Icons.add),
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(32),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/notes.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
   }
 }
