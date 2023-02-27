@@ -46,13 +46,23 @@ class _UpdateProfileState extends State<UpdateProfile> {
             const SizedBox(height: 10),
             Stack(
               children: [
-                SizedBox(
-                  width: 120,
-                  height: 120,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.asset(image)),
-                ),
+                if(imageFile != null)
+                  Container(child: SizedBox(
+                    width: 120,
+                    height: 120,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.file(imageFile!)),
+                  ),)
+                else 
+                Container(child:
+                  SizedBox(
+                    width: 120,
+                    height: 120,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.asset(image)),
+                  ),),
                 Positioned(
                   bottom: 0,
                   right: 0,
@@ -158,7 +168,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   void getImage({required ImageSource source}) async {
-    final file = await ImagePicker().pickImage(source: source);
+    final file = await ImagePicker().pickImage(
+      source: source,
+      maxWidth: 640,
+      maxHeight: 640,
+      imageQuality: 100
+    );
 
     if (file?.path != null) {
       setState(() {
